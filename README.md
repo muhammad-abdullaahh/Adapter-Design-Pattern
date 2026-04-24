@@ -1,92 +1,114 @@
-# 🔌 Adapter Pattern Demo (XML → JSON Converter)
+# 🔌 Adapter Design Pattern — Python Practice
 
-This project demonstrates the **Adapter Design Pattern** in Python by converting XML data from a third-party service into JSON format without modifying the original service.
-
----
-
-## 📌 Problem Statement
-
-We are working with a third-party API that returns data in **XML format**, but our application (charts system) requires **JSON format**.
-
-Since we cannot modify the third-party service, we use an **Adapter Pattern** to bridge the gap.
+A focused collection of Python implementations demonstrating the **Adapter Design Pattern** across real-world scenarios. Each file is a standalone, runnable example built as part of design pattern practice.
 
 ---
 
-## 💡 Solution
+## 📌 What is the Adapter Pattern?
 
-We created an **Adapter (XmlToJsonAdapter)** that:
-- Takes XML data from the service
-- Converts it into a Python dictionary
-- Then converts it into JSON format
+The **Adapter Pattern** is a structural design pattern that allows two incompatible interfaces to work together. It acts as a bridge between a client that expects one interface and a legacy or third-party class that provides a different one.
 
----
-
-## 🧱 Project Structure
-
-LAB08/
-│
-├── main.py              # Client code (entry point)
-├── xml_service.py       # Third-party XML service (Adaptee)
-├── json_interface.py    # Interface (Abstract Base Class)
-└── adapter.py           # Adapter (XML → JSON converter)
+```
+Client → Target Interface → Adapter → Adaptee (Legacy/Incompatible System)
+```
 
 ---
 
-## ⚙️ How It Works
+## 📂 Files Overview
 
-1. XmlService returns XML data  
-2. XmlToJsonAdapter converts XML → JSON  
-3. main.py uses only JSON output (doesn’t care about XML)
+| File | Scenario | Adaptee → Target |
+|------|----------|-----------------|
+| `main.py` | Media Player | `LegacyMediaPlayer`, `MP4Player`, `VLCPlayer` → `MediaPlayer` |
+| `task01.py` | Smart Home System | `LegacyFan` (`start/stop`) → `SmartDevice` (`turn_on/turn_off`) |
+| `task02.py` | Data Processing | `CDataGenerator` (dict) → `XMLDataProcessor` (XML string) |
+| `task03.py` | University Library | `LegacyArchive` (`fetch/display`) → `LibrarySystem` (`load/use`) |
+| `task04.py` | College Performance | `GradingSystem` + `EvaluationSystem` → `StudentPerformance` (ABC) |
 
 ---
 
 ## 🚀 How to Run
 
-1. Open project in VS Code  
-2. Run:
+Make sure you have **Python 3.x** installed.
 
+```bash
+# Clone the repo
+git clone https://github.com/muhammad-abdullaahh/adapter-pattern-python.git
+cd adapter-pattern-python
+
+# Run any file
 python main.py
+python task01.py
+python task02.py
+python task03.py
+python task04.py
+```
 
 ---
 
-## 📤 Example Output
+## 🧠 Key Concepts Demonstrated
 
-JSON Output: {"name": "Abdullah", "age": "21"}
-
----
-
-## 🧠 Design Pattern Used
-
-Adapter Pattern
-
-Intent:
-Convert the interface of a class into another interface clients expect.
-
-Why used:
-- Cannot modify third-party API
-- Need JSON format for system
-- Adapter acts as translator
+- **Target Interface** — the interface the client expects (`SmartDevice`, `MediaPlayer`, etc.)
+- **Adaptee** — the existing class with an incompatible interface (`LegacyFan`, `LegacyMediaPlayer`, etc.)
+- **Adapter** — wraps the adaptee and translates calls to match the target interface
+- **Client** — interacts only with the target interface, unaware of the adaptee
+- **Abstract Base Class (ABC)** — used in `task04.py` to enforce the interface contract
 
 ---
 
-## 🎯 Key Benefits
+## 📋 Example Output
 
-- No modification to third-party code  
-- Loose coupling  
-- Easy integration  
-- Open/Closed principle  
+**`task01.py` — Smart Home Fan Adapter**
+```
+[SmartHome] Turning device ON...
+[LegacyFan] Fan started
+[SmartHome] Turning device OFF...
+[LegacyFan] Fan stopped
+```
+
+**`task02.py` — C Data to XML Adapter**
+```
+[System] Processing XML Data:
+
+<student>
+  <id>101</id>
+  <name>Ali</name>
+  <marks>85</marks>
+</student>
+```
 
 ---
 
-## 👨‍💻 Tech Used
+## 🏗️ Pattern Structure (UML-style)
 
-- Python
-- XML parsing
-- JSON handling
-- OOP Design Patterns
+```
+┌─────────────────┐       ┌──────────────────┐       ┌──────────────────┐
+│   <<Interface>> │       │    <<Adapter>>   │       │   <<Adaptee>>    │
+│  Target         │◄──────│  XxxAdapter      │──────►│  LegacySystem    │
+│  + method()     │       │  + method()      │       │  + old_method()  │
+└─────────────────┘       └──────────────────┘       └──────────────────┘
+        ▲
+        │
+┌───────┴─────────┐
+│    Client       │
+│  Uses target    │
+│  interface only │
+└─────────────────┘
+```
 
 ---
 
-## 🔥 Author
+## 🛠️ Tech Stack
 
-Muhammad Abdullah - BSE student
+- **Language:** Python 3.x
+- **Concepts:** OOP, Structural Design Patterns, Abstract Base Classes (`abc` module)
+
+---
+
+## 👤 Author
+
+**Muhammad Abdullah**
+GitHub: [@muhammad-abdullaahh](https://github.com/muhammad-abdullaahh)
+
+---
+
+> Part of an ongoing series of design pattern implementations for academic and portfolio purposes.
